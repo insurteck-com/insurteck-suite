@@ -1,6 +1,6 @@
 {
   "name": "@insurteck/suite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lo que los productos de la suite Insurteck necesitan IGUAL, y cuya divergencia seria un fallo.",
   "license": "UNLICENSED",
   "main": "dist/index.js",

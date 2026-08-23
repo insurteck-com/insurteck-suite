@@ -19,17 +19,24 @@ Un paquete compartido empieza con un verificador y acaba con la mitad del domini
 
 ## Cómo se consume
 
-Dependencia de git **fijada por etiqueta**, nunca por rama:
+Por el **tarball de la etiqueta**, nunca por rama:
 
 ```json
-"@insurteck/suite": "github:insurteck-com/insurteck-suite#v0.1.0"
+"@insurteck/suite": "https://github.com/insurteck-com/insurteck-suite/archive/refs/tags/v0.1.1.tar.gz"
 ```
 
-Con una rama, `npm install` en dos máquinas el mismo día trae dos versiones distintas — y eso con
-la pieza que verifica las sesiones.
+**Y no como dependencia de git, aunque sea lo obvio.** Se probó con un `docker build` de verdad y
+murió: `node:22-alpine` **no trae cliente de git**, y además npm normaliza la URL a `git+ssh://`,
+donde no hay clave. La alternativa era `apk add git` más un `git config url…insteadOf` en el
+Dockerfile de cada consumidor — dos líneas en cuatro repositorios, para siempre, que alguien
+olvidará. El mecanismo que no pide nada a nadie gana.
 
-`npm` ejecuta el script `prepare` al instalar una dependencia de git, así que aquí se compila solo:
-no hace falta publicar `dist/`.
+Un tarball no ejecuta `prepare`, así que **`dist/` viaja commiteado**, y `dist-al-dia.spec.ts` se
+pone rojo si se queda viejo: sin eso, alguien corrige el verificador, los tests pasan —corren sobre
+`src/`— y los cuatro consumidores siguen con el binario anterior.
+
+Por etiqueta y nunca por rama: con una rama, `npm install` en dos máquinas el mismo día trae
+versiones distintas, y eso con la pieza que verifica las sesiones.
 
 ## Es público, y es una decisión
 
