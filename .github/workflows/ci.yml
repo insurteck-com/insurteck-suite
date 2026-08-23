@@ -1,0 +1,36 @@
+# CI DE `@insurteck/suite`.
+#
+# Lo que de verdad importa aquí es `publico.spec.ts`: este repositorio es PÚBLICO a propósito —así
+# desaparece el token del `docker build`, del CI y de cada máquina— y eso no se sostiene con una
+# promesa. Se sostiene con un barrido que se pone rojo si alguien mete una clave, una cadena de
+# conexión o un host interno.
+#
+# Y con `dist-al-dia.spec.ts`, que es el trinquete del compilado: los consumidores traen el TARBALL
+# de la etiqueta, y un tarball no ejecuta `prepare`, así que `dist/` viaja commiteado. Sin ese
+# trinquete, alguien corrige el verificador, los tests pasan —corren sobre `src/`— y los cuatro
+# consumidores siguen con el binario anterior.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # Aquí dentro van el barrido de secretos y el trinquete de `dist/`.
+      - name: Tests
+        run: npm test
