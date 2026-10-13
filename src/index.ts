@@ -14,3 +14,15 @@ export {
   kidDe,
   traerPorHttp,
 } from './auth/jwks';
+
+/**
+ * El emisor y la audiencia de la suite. Los importan el FIRMANTE (Identity) y los cuatro
+ * verificadores: es el dato que, si discrepa en una letra, produce 401 en todas partes sin que
+ * ningún mensaje mencione la palabra emisor.
+ */
+export {
+  AUDIENCIA,
+  EMISOR_POR_DEFECTO,
+  VAR_EMISOR,
+  emisor,
+} from './auth/emisor';

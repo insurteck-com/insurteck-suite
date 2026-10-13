@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.traerPorHttp = exports.kidDe = exports.esFalloDeToken = exports.VerificadorJwks = exports.SesionInvalida = void 0;
+exports.emisor = exports.VAR_EMISOR = exports.EMISOR_POR_DEFECTO = exports.AUDIENCIA = exports.traerPorHttp = exports.kidDe = exports.esFalloDeToken = exports.VerificadorJwks = exports.SesionInvalida = void 0;
 /**
  * LA PUERTA DEL PAQUETE.
  *
@@ -14,3 +14,13 @@ Object.defineProperty(exports, "VerificadorJwks", { enumerable: true, get: funct
 Object.defineProperty(exports, "esFalloDeToken", { enumerable: true, get: function () { return jwks_1.esFalloDeToken; } });
 Object.defineProperty(exports, "kidDe", { enumerable: true, get: function () { return jwks_1.kidDe; } });
 Object.defineProperty(exports, "traerPorHttp", { enumerable: true, get: function () { return jwks_1.traerPorHttp; } });
+/**
+ * El emisor y la audiencia de la suite. Los importan el FIRMANTE (Identity) y los cuatro
+ * verificadores: es el dato que, si discrepa en una letra, produce 401 en todas partes sin que
+ * ningún mensaje mencione la palabra emisor.
+ */
+var emisor_1 = require("./auth/emisor");
+Object.defineProperty(exports, "AUDIENCIA", { enumerable: true, get: function () { return emisor_1.AUDIENCIA; } });
+Object.defineProperty(exports, "EMISOR_POR_DEFECTO", { enumerable: true, get: function () { return emisor_1.EMISOR_POR_DEFECTO; } });
+Object.defineProperty(exports, "VAR_EMISOR", { enumerable: true, get: function () { return emisor_1.VAR_EMISOR; } });
+Object.defineProperty(exports, "emisor", { enumerable: true, get: function () { return emisor_1.emisor; } });

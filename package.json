@@ -1,11 +1,13 @@
 {
   "name": "@insurteck/suite",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lo que los productos de la suite Insurteck necesitan IGUAL, y cuya divergencia seria un fallo.",
   "license": "UNLICENSED",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "prepare": "npm run build",
